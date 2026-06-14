@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Message for You! 💌</title>
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="Open the envelope to read a special message.">
+  <meta property="og:title" content="A Message for You! 💌">
+  <meta property="og:description" content="Open the envelope to read a special message.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts for Playful, Modern Design -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Retro Grid Overlay -->
+  <div class="grid-overlay"></div>
+
+  <div class="app-container">
+    <!-- Animated Aura Blobs -->
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+
+    <!-- Interactive Envelope Stage -->
+    <div class="stage-envelope" id="envelope-stage">
+      <div class="envelope-wrapper" id="envelope-wrapper">
+        <div class="envelope" id="interactive-envelope">
+          <div class="envelope-flap"></div>
+          <div class="envelope-pocket"></div>
+          <div class="envelope-letter">
+            <div class="letter-preview-line"></div>
+            <div class="letter-preview-line short"></div>
+          </div>
+          <div class="envelope-seal">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seal-star">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="tap-instruction" id="tap-instruction">
+        <button class="open-btn" id="open-btn">OPEN LETTER</button>
+      </div>
+    </div>
+
+    <!-- Final Glassmorphic Card Stage -->
+    <div class="stage-card hidden" id="card-stage">
+      <div class="glass-card">
+        <div class="card-body">
+          <h1 class="message-text">what are we doing?</h1>
+          <div class="gif-container">
+            <img src="Sad-Sponge-Bob-gif.gif" alt="Sad SpongeBob" id="spongebob-gif" class="gif-image">
+          </div>
+        </div>
+        <div class="card-footer">
+          <button id="replay-btn" class="replay-btn" title="Replay Animation">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="replay-icon">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+            </svg>
+            replay
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive JavaScript logic -->
+  <script src="app.js"></script>
+</body>
+</html>

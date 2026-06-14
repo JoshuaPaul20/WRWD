@@ -1,0 +1,467 @@
+/* --- Design System & CSS Variables --- */
+:root {
+  --bg-dark: #0a0a0f;
+  --envelope-bg: #fdfaf6;
+  --envelope-pocket-bg: #ffccd5;
+  --envelope-flap-bg: #ffb3c1;
+  --border-color: #1a1a2e;
+  
+  --accent-pink: #ff4d6d;
+  --accent-yellow: #ffb703;
+  
+  --font-family-title: 'Fredoka', sans-serif;
+  --font-family-body: 'Outfit', sans-serif;
+}
+
+/* --- Base Reset & Page Layout --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-family-body);
+  background-color: var(--bg-dark);
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  color: #ffffff;
+  perspective: 1000px;
+}
+
+/* --- Retro Desktop Grid Overlay --- */
+.grid-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 35px 35px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* --- Full Screen App Container --- */
+.app-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* --- Dynamic Aura Background Blobs --- */
+.bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: 1;
+  opacity: 0.35;
+  animation: floatBlobs 16s infinite alternate ease-in-out;
+}
+
+.blob-1 {
+  width: 500px;
+  height: 500px;
+  background: var(--accent-pink);
+  top: -100px;
+  left: -50px;
+}
+
+.blob-2 {
+  width: 600px;
+  height: 600px;
+  background: #7209b7;
+  bottom: -200px;
+  right: -100px;
+  animation-delay: -5s;
+}
+
+.blob-3 {
+  width: 400px;
+  height: 400px;
+  background: var(--accent-yellow);
+  top: 40%;
+  left: 50%;
+  animation-delay: -10s;
+}
+
+@keyframes floatBlobs {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(60px, -80px) scale(1.15) rotate(180deg);
+  }
+  100% {
+    transform: translate(-40px, 50px) scale(0.9) rotate(360deg);
+  }
+}
+
+/* --- Envelope Stage (State 1) --- */
+.stage-envelope {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.envelope-wrapper {
+  position: relative;
+  width: 310px;
+  height: 200px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  animation: gentleFloat 5s ease-in-out infinite;
+}
+
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0.5deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-0.5deg);
+  }
+}
+
+.envelope {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: var(--envelope-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  transform-style: preserve-3d;
+}
+
+/* Envelope Flap */
+.envelope-flap {
+  position: absolute;
+  top: -1.5px;
+  left: -1.5px;
+  width: calc(100% + 3px);
+  height: 60%;
+  background: var(--envelope-flap-bg);
+  clip-path: polygon(0 0, 50% 65%, 100% 0);
+  transform-origin: top;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), z-index 0.3s;
+  z-index: 5;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+/* Envelope Pocket */
+.envelope-pocket {
+  position: absolute;
+  bottom: -1.5px;
+  left: -1.5px;
+  width: calc(100% + 3px);
+  height: 100%;
+  background: var(--envelope-pocket-bg);
+  border-bottom: 1.5px solid var(--border-color);
+  border-left: 1.5px solid var(--border-color);
+  border-right: 1.5px solid var(--border-color);
+  clip-path: polygon(0 48%, 50% 65%, 100% 48%, 100% 100%, 0 100%);
+  z-index: 4;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+/* Letter inside envelope */
+.envelope-letter {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  background: #ffffff;
+  border-radius: 8px;
+  z-index: 2;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  gap: 12px;
+  border: 1.5px dashed rgba(0, 0, 0, 0.1);
+}
+
+.letter-preview-line {
+  height: 6px;
+  background-color: #e9ecef;
+  border-radius: 3px;
+  width: 100%;
+}
+
+.letter-preview-line.short {
+  width: 60%;
+}
+
+/* Wax Seal - SVG Star ⭐️ */
+.envelope-seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  background: #ffffff;
+  border: 1.5px solid var(--border-color);
+  border-radius: 50%;
+  transform: translate(-50%, -20%) rotate(-5deg);
+  z-index: 6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+}
+
+.seal-star {
+  width: 20px;
+  height: 20px;
+  stroke: var(--border-color);
+  fill: var(--accent-yellow);
+}
+
+.envelope-wrapper:hover .envelope-seal {
+  transform: translate(-50%, -20%) scale(1.1) rotate(10deg);
+}
+
+/* --- Open State Animations --- */
+.envelope-wrapper.open .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.envelope-wrapper.open .envelope-seal {
+  transform: translate(-50%, -20%) scale(0) rotate(45deg);
+  opacity: 0;
+}
+
+.envelope-wrapper.open .envelope-letter {
+  transform: translateY(-60px) rotate(-1deg);
+}
+
+/* Open Button Styling */
+.tap-instruction {
+  z-index: 10;
+}
+
+.open-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #ffffff;
+  font-family: var(--font-family-body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 12px 32px;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  letter-spacing: 0.5px;
+}
+
+.open-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.open-btn:active {
+  transform: translateY(1px);
+}
+
+/* --- Transition Fade classes --- */
+.stage-envelope.fade-out {
+  opacity: 0;
+  transform: scale(0.92) translateY(20px);
+  pointer-events: none;
+}
+
+.stage-card {
+  position: absolute;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 420px;
+  opacity: 0;
+  transform: scale(0.85) translateY(15px);
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+
+.stage-card.show {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+
+/* --- Clean Glassmorphic Card (Stage 2) --- */
+.glass-card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-radius: 24px;
+  padding: 35px 25px;
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+  text-align: center;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  width: 100%;
+}
+
+.message-text {
+  font-family: var(--font-family-title);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  animation: slideTextIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideTextIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* SpongeBob GIF Styling */
+.gif-container {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  background: #000000;
+  aspect-ratio: 16/12;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(0.8);
+  opacity: 0;
+  animation: bounceGif 0.7s cubic-bezier(0.25, 1, 0.5, 1) 0.25s forwards;
+}
+
+.gif-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes bounceGif {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --- Replay Button --- */
+.card-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.replay-btn {
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.55);
+  font-family: var(--font-family-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 8px 22px;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+}
+
+.replay-btn:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.replay-icon {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.replay-btn:hover .replay-icon {
+  transform: rotate(-360deg);
+}
+
+/* --- Hidden class utility --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 480px) {
+  .envelope-wrapper {
+    width: 280px;
+    height: 180px;
+  }
+  
+  .glass-card {
+    padding: 30px 20px 20px 20px;
+    border-radius: 20px;
+  }
+  
+  .message-text {
+    font-size: 1.6rem;
+  }
+  
+  .open-btn {
+    padding: 14px 36px; /* Improved touch target height for mobile */
+    font-size: 1.1rem;
+  }
+
+  .replay-btn {
+    padding: 12px 26px; /* Improved touch target height for mobile */
+  }
+}

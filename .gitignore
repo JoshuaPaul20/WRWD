@@ -1,0 +1,14 @@
+# Local developer files
+.gemini/
+*.log
+.system_generated/
+scratch/
+
+# IDE settings
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
